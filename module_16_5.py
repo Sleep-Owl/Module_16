@@ -16,7 +16,6 @@ class User(BaseModel):
     age: int
 
 
-
 @app.get("/", response_class=HTMLResponse)
 async def get_users(request: Request):
     return templates.TemplateResponse("users.html", {"request": request, "users": users_db})
