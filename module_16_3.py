@@ -28,7 +28,7 @@ async def add_user(username: Annotated[str, Path(
 
 @app.put('/user/{user_id}/{username}/{age}')
 async def update_user(
-        user_id: Annotated[int, Path(ge=1, le=100, description='Enter User ID', example='1')],
+        user_id: Annotated[str, Path(min_length=1, max_length=100, description='Enter User ID', example='1')],
         username: Annotated[str, Path(min_length=5, max_length=20, description='Enter username', example='UrbanUser')],
         age: int = Path(ge=18, le=120, description='Enter age', example='24')) -> str:
     users_db[user_id] = f'Имя: {username}, возраст: {age}'
@@ -36,6 +36,6 @@ async def update_user(
 
 
 @app.delete('/user/{user_id}')
-async def delete_user(user_id: int = Path(ge=1, le=100, description='Enter User ID', example='1')):
+async def delete_user(user_id: str = Path(min_length=1, max_length=100, description='Enter User ID', example='1')):
     users_db.pop(str(user_id))
     pass
